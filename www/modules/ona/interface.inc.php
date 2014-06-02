@@ -21,7 +21,7 @@ function interface_add($options="") {
     printmsg("DEBUG => interface_add({$options}) called", 3);
 
     // Version - UPDATE on every edit!
-    $version = '1.11';
+    $version = '1.10';
 
     // Parse incoming options string to an array
     $options = parse_options($options);
