@@ -3,6 +3,12 @@ run_install
 
 VERSION
 
+www/local/*
+www/local/config
+!www/local/plugins
+!www/local/plugins/README
+!www/local/config/motd.txt.example
+
 www/local
 !www/local/plugins/README
 !www/local/config/motd.txt.example
@@ -16,8 +22,6 @@ etc/*
 sql/*
 !sql/EXAMPLE.sql.disable
 !sql/list_all_hosts.sql
-www/*.htm
 
 cfg_archive_local
 
-spool
