@@ -35,9 +35,6 @@ function ws_save($window_name, $form='') {
         if ($form['js']) { $js .= $form['js']; }
     }
 
-    // Tell the gui to refresh the tag
-    $js .= "xajax_window_submit('tooltips', 'type => {$form['type']}, reference => {$form['reference']}, updateid => {$form['updateid']}', 'tag_html');";
-
     // Return an XML response
     $response->addScript($js);
     return($response->getXML());
