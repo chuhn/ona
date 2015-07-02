@@ -1,0 +1,15 @@
+Source: opennetadmin
+Section: unknown
+Priority: optional
+Maintainer: Christopher Huhn, GSI <C.Huhn@gsi.de>
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.6
+Homepage: http://opennetadmin.com/
+#Vcs-Git: git://anonscm.debian.org/collab-maint/opennetadmin.git
+#Vcs-Browser: http://anonscm.debian.org/?p=collab-maint/opennetadmin.git;a=summary
+
+Package: opennetadmin
+Architecture: all
+Depends: ${misc:Depends}
+Description: <insert up to 60 chars description>
+ <insert long description, indented with spaces>
