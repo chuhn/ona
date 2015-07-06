@@ -10,6 +10,11 @@ Homepage: http://opennetadmin.com/
 
 Package: opennetadmin
 Architecture: all
-Depends: ${misc:Depends}
-Description: <insert up to 60 chars description>
- <insert long description, indented with spaces>
+Depends: ${misc:Depends}, dbconfig-common
+Recommends: mysql-client
+Description: IP Address Management (IPAM) system
+ OpenNetAdmin provides a database managed inventory of your IP network.
+ Each subnet, host, and IP can be tracked via a centralized AJAX enabled web
+ interface that can help reduce tracking errors.
+ .
+ A full CLI interface is available as well to use for scripting and bulk work.
