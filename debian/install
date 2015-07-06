@@ -1,1 +1,3 @@
-www usr/share/opennetadmin
+www                    usr/share/opennetadmin
+install/ona-tables.sql usr/share/dbconfig-common/data/opennetadmin/install/mysql/ona-tables.sql
+install/ona-data.sql   usr/share/dbconfig-common/data/opennetadmin/install/mysql/ona-data.sql
