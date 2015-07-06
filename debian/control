@@ -10,7 +10,7 @@ Homepage: http://opennetadmin.com/
 
 Package: opennetadmin
 Architecture: all
-Depends: ${misc:Depends}, dbconfig-common
+Depends: ${misc:Depends}, dbconfig-common, famfamfam-silk
 Recommends: mysql-client
 Description: IP Address Management (IPAM) system
  OpenNetAdmin provides a database managed inventory of your IP network.
