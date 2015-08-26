@@ -21,7 +21,7 @@ function interface_add($options="") {
     printmsg("DEBUG => interface_add({$options}) called", 3);
 
     // Version - UPDATE on every edit!
-    $version = '1.10';
+    $version = '1.11';
 
     // Parse incoming options string to an array
     $options = parse_options($options);
@@ -298,6 +298,10 @@ Modify an interface record
     interface=ID or IP or MAC     interface ID or IP address
      or
     host=NAME[.DOMAIN] or ID      find interface by hostname or host_id
+     or
+    primary=yes                   (case sensitive) pick the host's primary
+                                  interface, only applies when "host" parameter
+                                  is used
 
     set_ip=IP                     change IP address (numeric or dotted format)
     set_mac=ADDRESS               change the mac address (most formats ok)
@@ -331,8 +335,8 @@ EOM
             return(array(2, $self['error'] . "\n"));
         }
         // If we got one, load an associated interface
-        // ... or the primary interface, if the use_primary option is present
-        if ($options['use_primary'] == 'Y') {
+        // ... or the primary interface, if the primary option is set to 'yes'
+        if ($options['primary'] == 'yes') {
             list($status, $rows, $interface) = ona_get_interface_record(array('id' => $host['primary_interface_id']));
         }
         else {
