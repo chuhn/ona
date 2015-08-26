@@ -298,10 +298,6 @@ Modify an interface record
     interface=ID or IP or MAC     interface ID or IP address
      or
     host=NAME[.DOMAIN] or ID      find interface by hostname or host_id
-     or
-    primary=yes                   (case sensitive) pick the host's primary
-                                  interface, only applies when "host" parameter
-                                  is used
 
     set_ip=IP                     change IP address (numeric or dotted format)
     set_mac=ADDRESS               change the mac address (most formats ok)
@@ -310,9 +306,8 @@ Modify an interface record
     set_last_response=DATE        date ip was last seen
 
   Optional:
-    use_primary[=Y]               use the host's primary interface (only applies
-                                  when "host" option is used!). NOTE: dcm.pl
-                                  requires a value ("Y").
+    use_primary                   use the host's primary interface (only applies
+                                  when "host" option is used!)
 \n
 EOM
         ));
@@ -335,8 +330,8 @@ EOM
             return(array(2, $self['error'] . "\n"));
         }
         // If we got one, load an associated interface
-        // ... or the primary interface, if the primary option is set to 'yes'
-        if ($options['primary'] == 'yes') {
+        // ... or the primary interface, if the use_primary option is present
+        if ($options['use_primary'] == 'Y') {
             list($status, $rows, $interface) = ona_get_interface_record(array('id' => $host['primary_interface_id']));
         }
         else {
