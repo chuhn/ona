@@ -3,12 +3,6 @@ run_install
 
 VERSION
 
-www/local/*
-www/local/config
-!www/local/plugins
-!www/local/plugins/README
-!www/local/config/motd.txt.example
-
 www/local
 !www/local/plugins/README
 !www/local/config/motd.txt.example
