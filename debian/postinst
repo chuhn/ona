@@ -20,6 +20,9 @@ set -e
 
 case "$1" in
     configure)
+        # source debconf stuff
+        . /usr/share/debconf/confmodule
+
         . /usr/share/dbconfig-common/dpkg/config.mysql
         dbc_generate_include=php:/etc/opennetadmin/dbconfig.php
         dbc_go opennetadmin $@
