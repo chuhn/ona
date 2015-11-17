@@ -1,4 +1,14 @@
+www/*php               usr/share/opennetadmin
+www/images             usr/share/opennetadmin
+www/include            usr/share/opennetadmin
+www/modules            usr/share/opennetadmin
+www/plugins            usr/share/opennetadmin
+www/winc               usr/share/opennetadmin
+www/workspace_plugins  usr/share/opennetadmin
+
 www/local/config       etc/opennetadmin
-www                    usr/share/opennetadmin
+www/local/nmap_scans   usr/share/opennetadmin/local
+www/local/plugins      usr/share/opennetadmin/local
+
 install/ona-tables.sql usr/share/dbconfig-common/data/opennetadmin/install/mysql/ona-tables.sql
 install/ona-data.sql   usr/share/dbconfig-common/data/opennetadmin/install/mysql/ona-data.sql
