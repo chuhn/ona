@@ -1,1 +1,3 @@
 usr/share/icons/silk/16x16 usr/share/opennetadmin/www/images/silk
+etc/opennetadmin usr/share/opennetadmin/www/local/config
+var/log/ona  usr/share/opennetadmin/www/log
