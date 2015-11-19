@@ -9,6 +9,3 @@ www/workspace_plugins  usr/share/opennetadmin
 www/local/config/*     etc/opennetadmin
 www/local/nmap_scans   usr/share/opennetadmin/local
 www/local/plugins      usr/share/opennetadmin/local
-
-install/ona-tables.sql usr/share/dbconfig-common/data/opennetadmin/install/mysql
-install/ona-data.sql   usr/share/dbconfig-common/data/opennetadmin/install/mysql
