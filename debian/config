@@ -1,6 +1,8 @@
 #!/bin/sh
 # config maintainer script for opennetadmin
 
+set -e
+
 # source debconf stuff
 . /usr/share/debconf/confmodule
 
