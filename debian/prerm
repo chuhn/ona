@@ -16,12 +16,12 @@ set -e
 # for details, see http://www.debian.org/doc/debian-policy/ or
 # the debian-policy package
 
+. /usr/share/debconf/confmodule
+. /usr/share/dbconfig-common/dpkg/prerm.mysql
+dbc_go opennetadmin $@
 
 case "$1" in
     remove|upgrade|deconfigure)
-        . /usr/share/debconf/confmodule
-        . /usr/share/dbconfig-common/dpkg/prerm.mysql 
-        dbc_go opennetadmin $@
     ;;
 
     failed-upgrade)

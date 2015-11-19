@@ -19,14 +19,14 @@ set -x
 # the debian-policy package
 
 
+# source debconf stuff
+. /usr/share/debconf/confmodule
+. /usr/share/dbconfig-common/dpkg/postinst.mysql
+dbc_generate_include=php:/etc/opennetadmin/dbconfig.php
+dbc_go opennetadmin $@
+
 case "$1" in
     configure)
-        # source debconf stuff
-        . /usr/share/debconf/confmodule
-
-        . /usr/share/dbconfig-common/dpkg/config.mysql
-        dbc_generate_include=php:/etc/opennetadmin/dbconfig.php
-        dbc_go opennetadmin $@
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
