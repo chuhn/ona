@@ -1,5 +1,5 @@
 Source: opennetadmin
-Section: unknown
+Section: web
 Priority: optional
 Maintainer: Christopher Huhn, GSI <C.Huhn@gsi.de>
 Build-Depends: debhelper (>= 9)
@@ -10,8 +10,9 @@ Homepage: http://opennetadmin.com/
 
 Package: opennetadmin
 Architecture: all
-Depends: ${misc:Depends}, dbconfig-common, famfamfam-silk, php-xajax
+Depends: ${misc:Depends}, dbconfig-common, famfamfam-silk, php-xajax, httpd | apache2
 Recommends: mysql-client
+Suggests: mysql-server
 Description: IP Address Management (IPAM) system
  OpenNetAdmin provides a database managed inventory of your IP network.
  Each subnet, host, and IP can be tracked via a centralized AJAX enabled web
