@@ -1,2 +1,3 @@
 /etc/opennetadmin
+/usr/share/dbconfig-common/data/opennetadmin/install
 /var/log/ona
