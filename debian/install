@@ -1,4 +1,5 @@
 www/*php               usr/share/opennetadmin
+www/config             usr/share/opennetadmin
 www/images             usr/share/opennetadmin
 www/include            usr/share/opennetadmin
 www/modules            usr/share/opennetadmin
