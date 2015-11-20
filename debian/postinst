@@ -25,11 +25,13 @@ set -x
 dbc_generate_include=template:/etc/opennetadmin/database_settings.inc.php
 dbc_generate_include_args="--ucf -o template_infile='/usr/share/opennetadmin/config/database_settings.inc.php.tmpl'"
 dbc_generate_include_owner="root:www-data"
-dbc_generate_include_perms="0660"
+dbc_generate_include_perms="0640"
 dbc_go opennetadmin $@
 
 case "$1" in
     configure)
+        chown www-data:adm /var/log/opennetadmin
+        chmod 0750 /var/log/opennetadmin
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
