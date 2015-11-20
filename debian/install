@@ -9,3 +9,5 @@ www/workspace_plugins  usr/share/opennetadmin
 www/local/config/*     etc/opennetadmin
 www/local/nmap_scans   usr/share/opennetadmin/local
 www/local/plugins      usr/share/opennetadmin/local
+
+debian/database_settings.inc.php.tmpl usr/share/opennetadmin/config
