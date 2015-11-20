@@ -10,7 +10,7 @@ Homepage: http://opennetadmin.com/
 
 Package: opennetadmin
 Architecture: all
-Depends: ${misc:Depends}, dbconfig-common, famfamfam-silk, php-xajax, httpd | apache2
+Depends: ${misc:Depends}, dbconfig-common, famfamfam-silk, libphp-adodb, php-xajax, httpd | apache2
 Recommends: mysql-client
 Suggests: mysql-server
 Description: IP Address Management (IPAM) system
