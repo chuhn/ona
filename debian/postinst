@@ -22,7 +22,10 @@ set -x
 # source debconf stuff
 . /usr/share/debconf/confmodule
 . /usr/share/dbconfig-common/dpkg/postinst.mysql
-dbc_generate_include=php:/etc/opennetadmin/dbconfig.php
+dbc_generate_include=template:/etc/opennetadmin/database_settings.inc.php
+dbc_generate_include_args="--ucf -o template_infile='/usr/share/opennetadmin/config/database_settings.inc.php.tmpl'"
+dbc_generate_include_owner="root:www-data"
+dbc_generate_include_perms="0660"
 dbc_go opennetadmin $@
 
 case "$1" in
