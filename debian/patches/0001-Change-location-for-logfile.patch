@@ -1,0 +1,21 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Fri, 20 Nov 2015 19:29:31 +0100
+Subject: Change location for logfile
+
+---
+ www/config/config.inc.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/www/config/config.inc.php b/www/config/config.inc.php
+index 47be897..05b102b 100644
+--- a/www/config/config.inc.php
++++ b/www/config/config.inc.php
+@@ -73,7 +73,7 @@ $conf = array (
+     "syslog"                 => "0",
+     "stdout"                 => "0",
+     "log_to_db"              => "0",
+-    "logfile"                => "/var/log/ona.log",
++    "logfile"                => "/var/log/opennetadmin/ona.log",
+ 
+     /* The output charset to be used in htmlentities() and htmlspecialchars() filtering */
+     "charset"                => "utf8",
