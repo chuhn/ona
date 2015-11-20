@@ -23,4 +23,4 @@ include /usr/share/dpkg/default.mk
 
 override_dh_install:
 	dh_install
-	cat install/ona-tables.sql install/ona-data.sql > debian/tmp/usr/share/dbconfig-common/data/opennetadmin/install/mysql
+	cat install/ona-tables.sql install/ona-data.sql > debian/opennetadmin/usr/share/dbconfig-common/data/opennetadmin/install/mysql
