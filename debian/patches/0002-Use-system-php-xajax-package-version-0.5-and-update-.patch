@@ -5,7 +5,7 @@ Subject: Use system php-xajax package (version 0.5) and update function calls
 ---
  www/include/functions_gui.inc.php               | 36 ++++++++++++-------------
  www/include/functions_network_map.inc.php       |  2 +-
- www/include/xajax_setup.inc.php                 | 14 +++++-----
+ www/include/xajax_setup.inc.php                 | 15 ++++++-----
  www/winc/app_advanced_search.inc.php            |  2 +-
  www/winc/app_config_type_edit.inc.php           |  6 ++---
  www/winc/app_config_type_list.inc.php           |  8 +++---
@@ -91,7 +91,7 @@ Subject: Use system php-xajax package (version 0.5) and update function calls
  www/winc/user_edit.inc.php                      |  8 +++---
  www/winc/user_list.inc.php                      | 10 +++----
  www/winc/work_space.inc.php                     |  2 +-
- 88 files changed, 302 insertions(+), 302 deletions(-)
+ 88 files changed, 303 insertions(+), 302 deletions(-)
 
 diff --git a/www/include/functions_gui.inc.php b/www/include/functions_gui.inc.php
 index cd4f416..6b3844d 100644
@@ -273,21 +273,22 @@ index 290f5b3..0269636 100644
      // If the user supplied an array in a string, build the array and store it in $form
      $form = parse_options_string($form);
 diff --git a/www/include/xajax_setup.inc.php b/www/include/xajax_setup.inc.php
-index 943373c..ec6a9d4 100644
+index 943373c..32b2e88 100644
 --- a/www/include/xajax_setup.inc.php
 +++ b/www/include/xajax_setup.inc.php
-@@ -10,8 +10,8 @@
+@@ -10,8 +10,9 @@
  // Load Xajax and create an xajax object
  
  // xajax 0.5.x formatting
 -//require_once("{$include}/xajax/xajax_core/xajax.inc.php");
 -//$xajaxProcReq='processRequest';
++require_once("/usr/share/php/xajax/xajax_core/xajax.inc.php");
 +require_once("/usr/share/php/xajax/xajax_core/legacy.inc.php");
 +$xajaxProcReq='processRequest';
  
  
  
-@@ -19,8 +19,8 @@
+@@ -19,8 +20,8 @@
  
  
  // xajax 0.2.x formatting
@@ -298,7 +299,7 @@ index 943373c..ec6a9d4 100644
  
  
  
-@@ -30,7 +30,7 @@ $xajaxProcReq='processRequests';
+@@ -30,7 +31,7 @@ $xajaxProcReq='processRequests';
  
  
  
@@ -307,7 +308,7 @@ index 943373c..ec6a9d4 100644
  
  
  
-@@ -211,7 +211,7 @@ function ws_change_page($window_name, $form) {
+@@ -211,7 +212,7 @@ function ws_change_page($window_name, $form) {
      $form = parse_options_string($form);
      
      // Instantiate the xajaxResponse object
@@ -316,7 +317,7 @@ index 943373c..ec6a9d4 100644
      $js = '';
      
      // Basically we're going to update the value of the input field called "page" 
-@@ -283,7 +283,7 @@ function suggest_username($q, $el_input, $el_suggest) {
+@@ -283,7 +284,7 @@ function suggest_username($q, $el_input, $el_suggest) {
      global $conf;
      
      // Instantiate the xajaxResponse object
