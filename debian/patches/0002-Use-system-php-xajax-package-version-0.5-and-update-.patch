@@ -273,7 +273,7 @@ index 290f5b3..0269636 100644
      // If the user supplied an array in a string, build the array and store it in $form
      $form = parse_options_string($form);
 diff --git a/www/include/xajax_setup.inc.php b/www/include/xajax_setup.inc.php
-index 943373c..7bd584e 100644
+index 943373c..ec6a9d4 100644
 --- a/www/include/xajax_setup.inc.php
 +++ b/www/include/xajax_setup.inc.php
 @@ -10,8 +10,8 @@
@@ -282,7 +282,7 @@ index 943373c..7bd584e 100644
  // xajax 0.5.x formatting
 -//require_once("{$include}/xajax/xajax_core/xajax.inc.php");
 -//$xajaxProcReq='processRequest';
-+require_once("/usr/share/php/xajax/xajax_core/xajax.inc.php");
++require_once("/usr/share/php/xajax/xajax_core/legacy.inc.php");
 +$xajaxProcReq='processRequest';
  
  
