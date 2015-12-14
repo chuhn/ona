@@ -13,7 +13,7 @@ Architecture: all
 Depends: ${misc:Depends}, dbconfig-common, famfamfam-silk, libphp-adodb, php5-gmp, php5-mysql, php-xajax, ucf,
  httpd | apache2
 Recommends: mysql-client
-Suggests: mysql-server
+Suggests: mysql-server, php5-ldap
 Description: IP Address Management (IPAM) system
  OpenNetAdmin provides a database managed inventory of your IP network.
  Each subnet, host, and IP can be tracked via a centralized AJAX enabled web
