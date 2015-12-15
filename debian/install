@@ -12,3 +12,4 @@ www/local/nmap_scans   usr/share/opennetadmin/local
 www/local/plugins      usr/share/opennetadmin/local
 
 debian/database_settings.inc.php.tmpl usr/share/opennetadmin/config
+install/*.xml          usr/share/opennetadmin/axmls
