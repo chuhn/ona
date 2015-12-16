@@ -1,0 +1,139 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Tue, 15 Dec 2015 18:41:45 +0100
+Subject: Add basic support for asset tags
+
+---
+ www/modules/ona/host.inc.php                          | 19 +++++++++++++++++--
+ www/winc/edit_host.inc.php                            | 18 ++++++++++++++++++
+ .../builtin/host_detail/main.inc.php                  | 10 ++++++++++
+ 3 files changed, 45 insertions(+), 2 deletions(-)
+
+diff --git a/www/modules/ona/host.inc.php b/www/modules/ona/host.inc.php
+index b1fc404..e2d0855 100644
+--- a/www/modules/ona/host.inc.php
++++ b/www/modules/ona/host.inc.php
+@@ -52,6 +52,7 @@ Add a new host
+   Optional:
+     notes=NOTES               Textual notes
+     location=REF              Reference of location
++    asset_tag=TAG             Asset tag for device
+     device=NAME|ID            The device this host is associated with
+ 
+   Optional, add an interface too:
+@@ -210,8 +211,9 @@ EOM
+             'id'                => $host['device_id'],
+             'device_type_id'    => $device_type['id'],
+             'location_id'       => $loc['id'],
+-            'primary_host_id'   => $id
+-            // FIXME: (MP) add in the asset tag and serial number stuff too
++            'primary_host_id'   => $id,
++            // FIXME: (MP) add in the serial number stuff too
++            'asset_tag'         => $devid['asset_tag']
+         )
+     );
+     if ($status or !$rows) {
+@@ -334,6 +336,7 @@ function host_modify($options="") {
+        (!$options['set_host'] and
+         !$options['set_type'] and
+         !$options['set_location'] and
++        !$options['set_asset_tag'] and
+         !$options['set_notes']
+        ) ) {
+         // NOTE: Help message lines should not exceed 80 characters for proper display on a console
+@@ -355,6 +358,7 @@ Modify a host record
+     set_type=TYPE or ID       Change device/model type or ID
+     set_notes=NOTES           Change the textual notes
+     set_location=REF          Reference for location
++    set_asset_tag=TAG         Asset tag for device
+     set_device=NAME|ID        Name or ID of the device this host is associated with
+ 
+ EOM
+@@ -458,6 +462,17 @@ EOM
+         }
+     }
+ 
++    if (array_key_exists('set_asset_tag', $options)) {
++        if (!$options['set_asset_tag'])
++            unset($SET_DEV['asset_tag']);
++        else {
++            // FIXME: sanity checks for asset tags ...
++            // If asset_tag is changing, then set the variable
++            if ($device['asset_tag'] != $options['set_asset_tag'])
++                $SET_DEV['asset_tag'] = $options['set_asset_tag'];
++        }
++    }
++
+     // Check permissions
+     if (!auth('host_modify')) {
+         $self['error'] = "Permission denied!";
+diff --git a/www/winc/edit_host.inc.php b/www/winc/edit_host.inc.php
+index d8e9f7f..a78862a 100644
+--- a/www/winc/edit_host.inc.php
++++ b/www/winc/edit_host.inc.php
+@@ -86,6 +86,7 @@ function ws_editor($window_name, $form='') {
+     list($status, $rows, $location) = ona_get_location_record(array('id' => $device['location_id']));
+ 
+     $host['location'] = $location['reference'];
++    $host['asset_tag'] = $device['asset_tag'];
+ 
+     $device_model_list = "<option value=\"\"></option>\n";
+     foreach (array_keys((array)$device_types) as $id) {
+@@ -291,6 +292,22 @@ EOL;
+                 <span id="qf_location_{$window_name}" title="Location Quick Search"><img src="{$images}/silk/find.png" border="0"/></span>
+             </td>
+         </tr>
++        <tr>
++            <td align="right" nowrap="true">
++                Asset Tag
++            </td>
++            <td class="padding" align="left" width="100%">
++                <input
++                    id="set_asset_tag_{$window_name}"
++                    name="set_asset_tag"
++                    alt="Asset Tag"
++                    value="{$host['asset_tag']}"
++                    class="edit"
++                    type="text"
++                    size="7" maxlength="64"
++                >
++            </td>
++        </tr>
+ EOL;
+ 
+     // Display an interface edit section if it's a new host or there were exactly one interface.
+@@ -571,6 +588,7 @@ function ws_save($window_name, $form='') {
+ 
+         // Device options
+         $form['type'] = $form['set_type'];              unset($form['set_type']);
++        $form['asset_tag'] = $form['set_asset_tag'];    unset($form['set_asset_tag']);
+         $form['location'] = $form['set_location'];      unset($form['set_location']);
+ 
+         // Host options
+diff --git a/www/workspace_plugins/builtin/host_detail/main.inc.php b/www/workspace_plugins/builtin/host_detail/main.inc.php
+index 56c3659..e196425 100644
+--- a/www/workspace_plugins/builtin/host_detail/main.inc.php
++++ b/www/workspace_plugins/builtin/host_detail/main.inc.php
+@@ -89,6 +89,14 @@ $taghtml = <<<EOL
+                 </tr>
+ EOL;
+ 
++if ($record['asset_tag']) {
++    $assettaghtml = <<<EOL
++                <tr>
++                    <td align="right" nowrap="true"><b>Asset Tag</b>&nbsp;</td>
++                    <td nowrap="true" class="padding" align="left">{$record['asset_tag']}</td>
++                </tr>
++EOL;
++}
+ 
+ $modbodyhtml .= <<<EOL
+             <table width=100% cellspacing="0" border="0" cellpadding="0" style="margin-bottom: 8px;">
+@@ -97,6 +105,8 @@ $modbodyhtml .= <<<EOL
+                     <td nowrap="true" class="padding" align="left" title="{$record['devicefull']}">{$record['device']}</td>
+                 </tr>
+ 
++                $assettaghtml
++
+                 $taghtml
+ 
+                 <tr>
