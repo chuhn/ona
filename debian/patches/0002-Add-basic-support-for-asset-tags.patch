@@ -9,7 +9,7 @@ Subject: Add basic support for asset tags
  3 files changed, 45 insertions(+), 2 deletions(-)
 
 diff --git a/www/modules/ona/host.inc.php b/www/modules/ona/host.inc.php
-index b1fc404..e2d0855 100644
+index 383e2f3..93fdbc4 100644
 --- a/www/modules/ona/host.inc.php
 +++ b/www/modules/ona/host.inc.php
 @@ -52,6 +52,7 @@ Add a new host
