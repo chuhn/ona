@@ -2,7 +2,7 @@ Source: opennetadmin
 Section: web
 Priority: optional
 Maintainer: Christopher Huhn, GSI <C.Huhn@gsi.de>
-Build-Depends: debhelper (>= 9), quilt
+Build-Depends: debhelper (>= 9), quilt, apache2-dev
 Standards-Version: 3.9.6
 Homepage: http://opennetadmin.com/
 #Vcs-Git: git://anonscm.debian.org/collab-maint/opennetadmin.git
@@ -12,7 +12,7 @@ Package: opennetadmin
 Architecture: all
 Depends: ${misc:Depends}, dbconfig-common, famfamfam-silk, libphp-adodb, php5-gmp, php5-mysql, php-xajax, ucf,
  httpd | apache2
-Recommends: mysql-client
+Recommends: mysql-client, ${misc:Recommends}
 Suggests: mysql-server, php5-ldap
 Description: IP Address Management (IPAM) system
  OpenNetAdmin provides a database managed inventory of your IP network.
