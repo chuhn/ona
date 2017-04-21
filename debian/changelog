@@ -1,8 +1,19 @@
-opennetadmin (13.03.01-2~4.gbpf2feef) UNRELEASED; urgency=medium
+opennetadmin (13.03.01-2~5.gbpa975f0) UNRELEASED; urgency=medium
 
+  ** SNAPSHOT build @a975f085a839589e1d7796a15ba1a59b5a74e0bb **
+
+  [ Christopher Huhn, GSI ]
   ** SNAPSHOT build @f2feef19bfaa75bf7e5b0aaffc426aabf889baa6 **
 
- -- Christopher Huhn, GSI <C.Huhn@gsi.de>  Fri, 21 Apr 2017 13:01:01 +0200
+  [ Christopher Huhn ]
+  * New snapshot build
+  * Don't build from dfsg clean branch for now
+  * Add source URL
+  * Add shebang and php-cli dependency for db-config script
+
+  [ Christopher Huhn, GSI ]
+
+ -- Christopher Huhn, GSI <C.Huhn@gsi.de>  Fri, 21 Apr 2017 19:04:56 +0200
 
 opennetadmin (13.03.01-1) unstable; urgency=low
 
