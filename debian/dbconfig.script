@@ -30,13 +30,14 @@ $upgrade_index = $array['value'];
 # load initial schema:
 $schema = new adoSchema( $db );
 $xml = file_get_contents($xmlfile_tables);
-print $xml;
+
 print var_dump($schema->ParseSchemaString($xml));
 if ($schema->ExecuteSchema() == 2) {
     print "{$xmlfile_tables} successfully executed\n";
 } else {
-   //ERROR
+    //ERROR
     print "Error: " . $db->ErrorMsg();
+    // exit 1
 }
 
 // loop until we have processed all the upgrades
@@ -72,12 +73,12 @@ while(1 > 0) {
                 break;
             }
         } else {
-            //ERROR 
+            //ERROR
             print "Error: " . $db->ErrorMsg();
             break;
         }
     } else {
-        // No more upgrade files 
+        // No more upgrade files
         break;
     }
 }
