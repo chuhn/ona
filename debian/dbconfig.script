@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 // This is a stripped down version of the database setup in install.php
