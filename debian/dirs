@@ -1,3 +1,4 @@
 /etc/opennetadmin
-/usr/share/dbconfig-common/data/opennetadmin/install
+/usr/share/dbconfig-common/scripts/opennetadmin/install
+/usr/share/dbconfig-common/scripts/opennetadmin/upgrade/mysql
 /var/log/opennetadmin
