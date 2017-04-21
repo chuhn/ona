@@ -1,25 +1,8 @@
-opennetadmin (13.03.01-2~1.gbp75271b) UNRELEASED; urgency=medium
+opennetadmin (13.03.01-2~4.gbpf2feef) UNRELEASED; urgency=medium
 
-  ** SNAPSHOT build @75271b27dfa89ac8a035f857e27790e5e0181067 **
+  ** SNAPSHOT build @f2feef19bfaa75bf7e5b0aaffc426aabf889baa6 **
 
-  [ Christopher Huhn ]
-  * Add dbconfig-common and a description
-  * Install db definitions for dbconfig
-  * Add config script for dbconfig
-  * Add copyright info
-  * Silk icons come in a separate package
-  * Add postinst and postrm
-  * External dependency for xajax
-  * Config to /etc, log to /var/log
-  * Hook in debconf
-  * Todo list for packaging
-  * Add prerm script
-  * Add remaining packaging files
-  * Add gbp.conf
-
-  [ Christopher Huhn, GSI ]
-
- -- Christopher Huhn <C.Huhn@gsi.de>  Tue, 17 Nov 2015 10:09:17 +0100
+ -- Christopher Huhn, GSI <C.Huhn@gsi.de>  Fri, 21 Apr 2017 13:01:01 +0200
 
 opennetadmin (13.03.01-1) unstable; urgency=low
 
