@@ -1,0 +1,86 @@
+<?php
+
+// This is a stripped down version of the database setup in install.php
+
+include('adodb/adodb-xmlschema03.inc.php');
+
+include('/etc/opennetadmin/database_settings.inc.php');
+
+$base =  '/usr/share/opennetadmin/axmls';
+
+$xmlfile_tables = $base.'/ona-table_schema.xml';
+$xmlfile_data   = $base.'/ona-data.xml';
+
+$context_name = 'DEFAULT';
+$cdbs = $ona_contexts[$context_name]['databases']['0'];
+
+$db = ADONewConnection($cdbs['db_type']);
+
+$db->NConnect( $cdbs['db_host'], $cdbs['db_login'], $cdbs['db_passwd'], '' );
+
+$db->SelectDB($cdbs['db_database']);
+
+$db->Debug = true;
+
+$rs = $db->Execute("SELECT value FROM sys_config WHERE name like 'upgrade_index'");
+$array = $rs->FetchRow();
+$upgrade_index = $array['value'];
+
+# load initial schema:
+$schema = new adoSchema( $db );
+$xml = file_get_contents($xmlfile_tables);
+print $xml;
+print var_dump($schema->ParseSchemaString($xml));
+if ($schema->ExecuteSchema() == 2) {
+    print "{$xmlfile_tables} successfully executed\n";
+} else {
+   //ERROR
+    print "Error: " . $db->ErrorMsg();
+}
+
+// loop until we have processed all the upgrades
+while(1 > 0) {
+    // Find out what the next index will be
+    $new_index = $upgrade_index + 1;
+    // Determine file name
+    //$upgrade_sqlfile = "{$base}/{$upgrade_index}-to-{$new_index}.sql";
+    $upgrade_xmlfile = "{$base}/{$upgrade_index}-to-{$new_index}.xml";
+    $upgrade_phpfile = "{$base}/{$upgrade_index}-to-{$new_index}.php";
+
+    // Check that the upgrade script exists
+    if (file_exists($upgrade_phpfile)) {
+        //TODO: Execute PHP file
+    }
+    // Check that the upgrade file exists
+    if (file_exists($upgrade_xmlfile)) {
+        print "Upgrading to database version {$new_index}\n";
+        // get the contents of the sql update file
+        // create new tables in our database
+        // create a schema object and build the query array.
+        $schema = new adoSchema( $db );
+        // Build the SQL array from the schema XML file
+        print var_dump($schema->ParseSchema($upgrade_xmlfile));
+        // Execute the SQL on the database
+        if ($schema->ExecuteSchema() == 2) {
+            // Update the upgrade_index element in the sys_config table
+            if ($db->Execute("UPDATE sys_config SET value='{$new_index}' WHERE name like 'upgrade_index'")) {
+                $upgrade_index++;
+            } else {
+                //ERROR
+                print "Error: " . $db->ErrorMsg();
+                break;
+            }
+        } else {
+            //ERROR 
+            print "Error: " . $db->ErrorMsg();
+            break;
+        }
+    } else {
+        // No more upgrade files 
+        break;
+    }
+}
+
+//TODO: set the version field in DB?
+//$db->Execute("UPDATE sys_config SET value='{$version}' WHERE name like 'version'")
+?>
