@@ -1,0 +1,6 @@
+/var/log/opennetadmin/ona.log {
+  rotate 12
+  weekly
+  compress
+  create 640 www-data adm
+}
