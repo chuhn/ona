@@ -16,6 +16,7 @@ include /usr/share/dpkg/default.mk
 # package maintainers to append LDFLAGS
 #export DEB_LDFLAGS_MAINT_APPEND = -Wl,--as-needed
 
+DEB_VERSION := $(shell dpkg-parsechangelog | egrep '^Version:' | cut -f 2 -d ' ')
 
 # main packaging script based on dh7 syntax
 %:
@@ -23,4 +24,5 @@ include /usr/share/dpkg/default.mk
 
 override_dh_install:
 	dh_install
-	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/data/opennetadmin/install/mysql
+	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/install/mysql
+	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/upgrade/mysql/$(DEB_VERSION)
