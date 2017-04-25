@@ -1,0 +1,21 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Tue, 25 Apr 2017 15:13:32 +0200
+Subject: Disable update check for debian package
+
+---
+ www/config/config.inc.php | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/www/config/config.inc.php b/www/config/config.inc.php
+index 05b102b..0a9f30d 100644
+--- a/www/config/config.inc.php
++++ b/www/config/config.inc.php
+@@ -74,6 +74,8 @@ $conf = array (
+     "stdout"                 => "0",
+     "log_to_db"              => "0",
+     "logfile"                => "/var/log/opennetadmin/ona.log",
++    // turn off version checking for Debian package:
++    "skip_version_check"     => TRUE,
+ 
+     /* The output charset to be used in htmlentities() and htmlspecialchars() filtering */
+     "charset"                => "utf8",
