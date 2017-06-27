@@ -26,3 +26,7 @@ override_dh_install:
 	dh_install
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/install/mysql
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/upgrade/mysql/$(DEB_VERSION)
+#   this file has to be modified to be useful: move it to /etc/opennetadmin and strip some comment lines:
+    sed -e 2,4d debian/opennetadmin/usr/share/opennetadmin/workspace_plugins/builtin/host_actions/config.inc.php \
+		> debian/opennetadmin/etc/opennetadmin/host_actions.config.php
+	rm debian/opennetadmin/usr/share/opennetadmin/workspace_plugins/builtin/host_actions/config.inc.php
