@@ -1,6 +1,6 @@
-opennetadmin (13.03.01-2~5.gbpa975f0) UNRELEASED; urgency=medium
+opennetadmin (13.03.01-2~6.gbp7274c6) UNRELEASED; urgency=medium
 
-  ** SNAPSHOT build @a975f085a839589e1d7796a15ba1a59b5a74e0bb **
+  ** SNAPSHOT build @7274c6b8999b07eda630e5b722ace728b7c8a6c2 **
 
   [ Christopher Huhn, GSI ]
   ** SNAPSHOT build @f2feef19bfaa75bf7e5b0aaffc426aabf889baa6 **
@@ -13,7 +13,170 @@ opennetadmin (13.03.01-2~5.gbpa975f0) UNRELEASED; urgency=medium
 
   [ Christopher Huhn, GSI ]
 
- -- Christopher Huhn, GSI <C.Huhn@gsi.de>  Fri, 21 Apr 2017 19:04:56 +0200
+  [ mattpascoe ]
+  * Forcing guest login to only use local auth type, reduces amount of false hits on things like LDAP
+  * bug: when logging in session data is not tracked properly
+  * display AAAA records properly when deleting hosts
+
+  [ Matt Pascoe ]
+  * Adding indictor of which IP block an IP address belongs to in 'List hosts by IP' window.
+  * Case updates in find_vlan per dgreer
+  * fixing issue #78. AAAA references in DNS record edit dialog
+  * Addressing issue #80, Duplicate MAC check will not complain for duplicate MACs associated with the same host, only duplicates with other hosts
+  * test that dhcp option values are not empty
+  * Minor update to clarify dhcp option names
+  * updates to gitignore
+  * Comments about fopen in the checkversion code
+  * FEATURE: Added Tag support for hosts and subnets.  This is a one word tag. It is in addition to custom attributes which are key/value
+  * Refinement of tag feature
+  * Adding ability for a better progress bar during module runs such as deletes
+  * Reducing notices related to request variable debugging.  may just remove this entirely
+
+  [ mattpascoe ]
+  * adding target="_blank" so actions will open in another window
+
+  [ Matt Pascoe ]
+  * adding primary_interface_id to ona_get_host_record output
+
+  [ Noah Pritikin ]
+  * Added the ability to pass an optional primary flag for the interface_modify module
+  * changed option name and updated help message
+  * updated description of the use_primary option
+
+  [ opennetadmin ]
+  * allow dcm to specify an output format (json/yaml), custom_attribute_display is an initial test module for that ability
+
+  [ Matt Pascoe ]
+  * fix ldap related deprication notice
+  * adjust .gitignore and add nmap scan dir info. this makes plugin install easier
+  * minor fixups and new version info for nmap_scan plugin
+  * add  variable to top scope, should return the same as /etc/onabase
+  * updates to ona_find_vlan, does not use vlan id but vlan number
+  * update subnet display to profide machine readable output
+  * update host display to profide machine readable output
+  * update interface display to profide machine readable output
+  * fix broken vlan editing due to updates on ona_find_vlan
+
+  [ Noah Pritikin ]
+  * Added new custom_attribute_type_display module
+  * install and upgrade files updated
+  * more consistent naming
+  * added format and collapsed two options into one
+  * unused line of code
+
+  [ Christopher Huhn ]
+  * Initial packaging
+  * Add dbconfig-common and a description
+  * Install db definitions for dbconfig
+  * Add config script for dbconfig
+  * Add copyright info
+  * Silk icons come in a separate package
+  * Remove silk icons already available in package famfamfam-silk
+  * Add postinst and postrm
+  * External dependency for xajax
+  * Config to /etc, log to /var/log
+  * Hook in debconf
+
+  [ Matt Pascoe ]
+  * Addressing issue #80, Duplicate MAC check will not complain for duplicate MACs associated with the same host, only duplicates with other hosts
+  * updates to gitignore
+  * FEATURE: Added Tag support for hosts and subnets.  This is a one word tag. It is in addition to custom attributes which are key/value
+
+  [ Noah Pritikin ]
+  * Added the ability to pass an optional primary flag for the interface_modify module
+  * changed option name and updated help message
+
+  [ opennetadmin ]
+  * allow dcm to specify an output format (json/yaml), custom_attribute_display is an initial test module for that ability
+
+  [ Matt Pascoe ]
+  * adjust .gitignore and add nmap scan dir info. this makes plugin install easier
+  * minor fixups and new version info for nmap_scan plugin
+
+  [ Christopher Huhn ]
+  * Initial packaging
+  * Add dbconfig-common and a description
+  * Install db definitions for dbconfig
+  * Silk icons come in a separate package
+  * Add postinst and postrm
+  * External dependency for xajax
+  * Config to /etc, log to /var/log
+  * Hook in debconf
+  * Todo list for packaging
+  * Add prerm script
+  * Add remaining packaging files
+  * Add gbp.conf
+  * Snapshot release
+  * exclude www/config/local the hard way
+  * Some refinements to meta-data and dependencies
+  * set -x for debugging
+  * Add gbp.conf
+  * Move dbconfig stuff around
+  * Fix small install issues
+  * Table definitions for dbconfig-common have to be in a single file
+  * Depend on adodb
+  * Create directory for database schema
+  * Place schema in the right driectory
+  * Generate database config in ona style
+  * Depend on ucf
+  * Create logdir with proper permissions
+  * Include config dir in package
+  * Fix links
+  * Depend on php5-mysql
+  * 1st patch: default logdir location
+  * log location also in database dump
+  * Use system php-xajax package (version 0.5)
+  * Update function calls as described in http://www.xajax-project.org/en/docs-tutorials/upgrading-from-xajax-0-2-x-to-0-5/
+  * Use legacy xajax classes
+  * Add gitignore
+  * We also need xajax.inc.php
+  * Enable quilt
+  * Loading legacyXajax is rather tricky
+  * Disable xajax-0.5 patch, does not work atm.
+  * Depend on php5-gmp, cf. https://github.com/opennetadmin/ona/issues/43
+  * ÂSuggest php5-ldap for LDAP authentication
+  * Create .travis.yml
+  * Install xml DB schema files
+  * Remove broken system xajax patch, add asset_tag stuff
+  * Delete file with wrong name
+  * Merge settings from gpb.conf
+
+  [ Matt Pascoe ]
+  * Addressing issue #80, Duplicate MAC check will not complain for duplicate MACs associated with the same host, only duplicates with other hosts
+
+  [ Noah Pritikin ]
+  * Added the ability to pass an optional primary flag for the interface_modify module
+  * changed option name and updated help message
+
+  [ Christopher Huhn ]
+  * Add gbp.conf
+  * Use system php-xajax package (version 0.5)
+  * Update function calls as described in http://www.xajax-project.org/en/docs-tutorials/upgrading-from-xajax-0-2-x-to-0-5/
+  * Use legacy xajax classes
+  * We also need xajax.inc.php
+  * Loading legacyXajax is rather tricky
+  * Remove broken system xajax patch, add asset_tag stuff
+  * Delete file with wrong name
+  * Updated patch
+  * Build-depend on quilt
+  * Ingnore .travis.yml in source package
+  * Disabling patch for asset tag support
+  * Add apache2 packaging support
+  * Add logrotate script
+  * Setup database with adodb script instead of dump files
+  * New snapshot build
+  * Don't build from dfsg clean branch for now
+  * Add source URL
+  * Add shebang and php-cli dependency for db-config script
+  * Stop bogus output
+  * Install to scripts dir and figure out the version we are packaging for
+  * New snapshot build
+  * Disable update check
+  * Follow the recommendations of dbconfig-common
+
+  [ Christopher Huhn, GSI ]
+
+ -- Christopher Huhn, GSI <C.Huhn@gsi.de>  Fri, 28 Apr 2017 11:00:14 +0200
 
 opennetadmin (13.03.01-1) unstable; urgency=low
 
