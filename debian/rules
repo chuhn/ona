@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 # See debhelper(7) (uncomment to enable)
 # output every command that modifies files on the build system.
-#DH_VERBOSE = 1
+DH_VERBOSE = 1
 
 # see EXAMPLES in dpkg-buildflags(1) and read /usr/share/dpkg/*
 DPKG_EXPORT_BUILDFLAGS = 1
@@ -23,7 +23,11 @@ DEB_VERSION := $(shell dpkg-parsechangelog | egrep '^Version:' | cut -f 2 -d ' '
 	dh $@ --with quilt --with apache2
 
 override_dh_install:
-	dh_install --exclude=www/images/silk
+	dh_install --list-missing
+# cleanup silk icons
+# FIXME: rework dfsg_clean branch instead
+	-rm -rv debian/opennetadmin/usr/share/opennetadmin/images/silk \
+		debian/opennetadmin/usr/share/opennetadmin/include/adodb5
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/install/mysql
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/upgrade/mysql/$(DEB_VERSION)
 #   this file has to be modified to be useful: move it to /etc/opennetadmin and strip some comment lines:
