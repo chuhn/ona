@@ -24,8 +24,14 @@ $db->SelectDB($cdbs['db_database']);
 $db->Debug = true;
 
 $rs = $db->Execute("SELECT value FROM sys_config WHERE name like 'upgrade_index'");
-$array = $rs->FetchRow();
-$upgrade_index = $array['value'];
+
+if ($rs == false) {
+    // the table will not exist on a first time install
+    $upgrade_index = 1;
+} else {
+    $array = $rs->FetchRow();
+    $upgrade_index = $array['value'];
+}
 
 # load initial schema:
 $schema = new adoSchema( $db );
