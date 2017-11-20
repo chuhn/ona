@@ -2,6 +2,13 @@
 
 // database_settings.inc.php template filled out by db-config-common
 
+$db_type = '_DBC_DBTYPE_';
+
+// adodb in stretch dropped support for mysql in favor of mysqli
+if ($db_type == 'mysql' && version_compare(PHP_VERSION, '7.0.0') >= 0) {
+    $db_type = 'mysqli';
+}
+
 $ona_contexts=array (
   'DEFAULT' =>
   array (
@@ -9,7 +16,7 @@ $ona_contexts=array (
       array (
           0 =>
           array (
-              'db_type'     => '_DBC_DBTYPE_',
+              'db_type'     => $db_type,
               'db_host'     => '_DBC_DBSERVER_',
               'db_login'    => '_DBC_DBUSER_',
               'db_passwd'   => '_DBC_DBPASS_',
