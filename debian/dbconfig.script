@@ -1,7 +1,7 @@
 #!/usr/bin/php
 <?php
 
-// This is a stripped down version of the database setup in install.php
+// This is a stripped down version of the database setup in install/install.php
 
 include('adodb/adodb-xmlschema03.inc.php');
 
@@ -21,13 +21,13 @@ $db->NConnect( $cdbs['db_host'], $cdbs['db_login'], $cdbs['db_passwd'], '' );
 
 $db->SelectDB($cdbs['db_database']);
 
-$db->Debug = true;
+$db->debug = true;
 
 $rs = $db->Execute("SELECT value FROM sys_config WHERE name like 'upgrade_index'");
 
 if ($rs == false) {
     // the table will not exist on a first time install
-    $upgrade_index = 1;
+    $upgrade_index = 13;
 } else {
     $array = $rs->FetchRow();
     $upgrade_index = $array['value'];
@@ -36,13 +36,28 @@ if ($rs == false) {
 # load initial schema:
 $schema = new adoSchema( $db );
 $xml = file_get_contents($xmlfile_tables);
+$schema->ParseSchemaString($xml);
 
-print var_dump($schema->ParseSchemaString($xml));
 if ($schema->ExecuteSchema() == 2) {
     print "{$xmlfile_tables} successfully executed\n";
 } else {
     //ERROR
-    print "Error: " . $db->ErrorMsg();
+    print "Error: " . $db->ErrorMsg() . "\n";
+    // exit 1
+}
+
+
+# load initial data:
+$schema = new adoSchema( $db );
+$xml = file_get_contents($xmlfile_data);
+$schema->ParseSchemaString($xml);
+
+#print var_dump($schema->ParseSchemaString($xml));
+if ($schema->ExecuteSchema() == 2) {
+    print "{$xmlfile_data} successfully executed\n";
+} else {
+    //ERROR
+    print "Error: " . $db->ErrorMsg() . "\n";
     // exit 1
 }
 
@@ -67,7 +82,7 @@ while(1 > 0) {
         // create a schema object and build the query array.
         $schema = new adoSchema( $db );
         // Build the SQL array from the schema XML file
-        print var_dump($schema->ParseSchema($upgrade_xmlfile));
+        $schema->ParseSchema($upgrade_xmlfile);
         // Execute the SQL on the database
         if ($schema->ExecuteSchema() == 2) {
             // Update the upgrade_index element in the sys_config table
@@ -91,4 +106,8 @@ while(1 > 0) {
 
 //TODO: set the version field in DB?
 //$db->Execute("UPDATE sys_config SET value='{$version}' WHERE name like 'version'")
+
+/* Local Variables:  */
+/* mode: php         */
+/* End:              */
 ?>
