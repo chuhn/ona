@@ -4,7 +4,6 @@
 # see: dh_installdeb(1)
 
 set -e
-set -x
 
 # summary of how this script can be called:
 #        * <postinst> `configure' <most-recently-configured-version>
@@ -30,8 +29,8 @@ dbc_go opennetadmin $@
 
 case "$1" in
     configure)
-        chown www-data:adm /var/log/opennetadmin
-        chmod 0750 /var/log/opennetadmin
+        chown -c www-data:adm /var/log/opennetadmin
+        chmod -c 0750 /var/log/opennetadmin
     ;;
 
     abort-upgrade|abort-remove|abort-deconfigure)
