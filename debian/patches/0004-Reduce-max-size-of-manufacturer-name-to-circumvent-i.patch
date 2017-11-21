@@ -1,0 +1,22 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Tue, 21 Nov 2017 19:41:37 +0100
+Subject: Reduce max size of manufacturer name to circumvent index size
+ problem with mariadb cf. debian bug #848603
+
+---
+ install/ona-table_schema.xml | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/install/ona-table_schema.xml b/install/ona-table_schema.xml
+index f19b6a9..5391578 100644
+--- a/install/ona-table_schema.xml
++++ b/install/ona-table_schema.xml
+@@ -663,7 +663,7 @@
+       <KEY/>
+       <UNSIGNED/>
+     </field>
+-    <field name="name" type="C" size="255">
++    <field name="name" type="C" size="191">
+       <NOTNULL/>
+     </field>
+     <index name="name">
