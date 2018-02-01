@@ -2,3 +2,4 @@
 /usr/share/dbconfig-common/scripts/opennetadmin/install
 /usr/share/dbconfig-common/scripts/opennetadmin/upgrade/mysql
 /var/log/opennetadmin
+/var/lib/opennetadmin/plugins

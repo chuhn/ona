@@ -29,7 +29,8 @@ dbc_go opennetadmin $@
 
 case "$1" in
     configure)
-        chown -c www-data:adm /var/log/opennetadmin
+        chown -c  www-data:adm /var/log/opennetadmin
+        chown -Rc www-data:www-data /var/lib/opennetadmin
         chmod -c 0750 /var/log/opennetadmin
     ;;
 
