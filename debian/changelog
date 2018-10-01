@@ -1,9 +1,9 @@
-opennetadmin (13.03.01+git20160313.1e4b268-1) UNRELEASED; urgency=medium
+opennetadmin (18.1.1-1) UNRELEASED; urgency=medium
 
-  * Package from newest git commmit
-  * Cleanup this changelog
+  [ Christopher Huhn ]
+  * Package latest git tag
 
- -- Christopher Huhn, GSI <C.Huhn@gsi.de>  Tue, 27 Jun 2017 15:41:13 +0200
+ -- Christopher Huhn <C.Huhn@gsi.de>  Mon, 01 Oct 2018 17:50:37 +0200
 
 opennetadmin (13.03.01-2~6.gbp7274c6) unstable; urgency=medium
 
