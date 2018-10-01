@@ -27,7 +27,8 @@ override_dh_install:
 # cleanup silk icons
 # FIXME: rework dfsg_clean branch instead
 	-rm -rv debian/opennetadmin/usr/share/opennetadmin/images/silk \
-		debian/opennetadmin/usr/share/opennetadmin/include/adodb5
+		debian/opennetadmin/usr/share/opennetadmin/include/adodb5 \
+                debian/opennetadmin/usr/share/opennetadmin/local/plugins
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/install/mysql
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/upgrade/mysql/$(DEB_VERSION)
 #   this file has to be modified to be useful: move it to /etc/opennetadmin and strip some comment lines:
