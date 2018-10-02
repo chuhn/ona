@@ -1,9 +1,10 @@
-opennetadmin (18.1.1-1) UNRELEASED; urgency=medium
+opennetadmin (18.1.1-2) UNRELEASED; urgency=medium
 
   [ Christopher Huhn ]
   * Package latest git tag
+  * Grant unrectricted access to docroot
 
- -- Christopher Huhn <C.Huhn@gsi.de>  Mon, 01 Oct 2018 17:50:37 +0200
+ -- Christopher Huhn <C.Huhn@gsi.de>  Tue, 02 Oct 2018 14:04:19 +0200
 
 opennetadmin (13.03.01-2~6.gbp7274c6) unstable; urgency=medium
 
