@@ -9,5 +9,7 @@ set -e
 # source dbconfig-common shell library, and call the hook function
 if [ -f /usr/share/dbconfig-common/dpkg/config.mysql ]; then
     . /usr/share/dbconfig-common/dpkg/config.mysql 
+    # the database name is ona in many examples, stick with it:
+    dbc_dbname="ona"
     dbc_go opennetadmin $@
 fi
