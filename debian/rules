@@ -28,10 +28,12 @@ override_dh_install:
 # FIXME: rework dfsg_clean branch instead
 	-rm -rv debian/opennetadmin/usr/share/opennetadmin/images/silk \
 		debian/opennetadmin/usr/share/opennetadmin/include/adodb5 \
-                debian/opennetadmin/usr/share/opennetadmin/local/plugins
+		debian/opennetadmin/usr/share/opennetadmin/local/plugins
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/install/mysql
 	cp debian/dbconfig.script debian/opennetadmin/usr/share/dbconfig-common/scripts/opennetadmin/upgrade/mysql/$(DEB_VERSION)
-#   this file has to be modified to be useful: move it to /etc/opennetadmin and strip some comment lines:
+#	this file has to be modified to be useful: move it to /etc/opennetadmin and strip some comment lines:
 	sed -e 2,4d debian/opennetadmin/usr/share/opennetadmin/workspace_plugins/builtin/host_actions/config.inc.php \
 		> debian/opennetadmin/etc/opennetadmin/host_actions.config.php
+#	/etc/onabase tells plugins the ona installation directory:
+	echo /usr/share/opennetadmin > debian/opennetadmin/etc/onabase
 	rm debian/opennetadmin/usr/share/opennetadmin/workspace_plugins/builtin/host_actions/config.inc.php
