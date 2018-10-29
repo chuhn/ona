@@ -1,5 +1,3 @@
 0001-Change-location-for-logfile.patch
-#0002-Add-basic-support-for-asset-tags.patch
 0003-Disable-update-check-for-debian-package.patch
-#0004-Reduce-max-size-of-manufacturer-name-to-circumvent-i.patch
-#0005-Change-database-type-to-mysqli-for-PHP7.patch
+0003-Disable-default-guest-access-and-enable-DNS-views.patch
