@@ -12,6 +12,9 @@ $base =  '/usr/share/opennetadmin/axmls';
 $xmlfile_tables = $base.'/ona-table_schema.xml';
 $xmlfile_data   = $base.'/ona-data.xml';
 
+# the package version is passed to this script as the 2nd cmdline argument
+$version = $argv[3];
+
 $context_name = 'DEFAULT';
 $cdbs = $ona_contexts[$context_name]['databases']['0'];
 
@@ -104,8 +107,8 @@ while(1 > 0) {
     }
 }
 
-//TODO: set the version field in DB?
-//$db->Execute("UPDATE sys_config SET value='{$version}' WHERE name like 'version'")
+//TODO: set the version field in DB
+$db->Execute("UPDATE sys_config SET value='{$version} (debian)' WHERE name like 'version'")
 
 /* Local Variables:  */
 /* mode: php         */
