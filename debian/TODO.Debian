@@ -1,1 +1,3 @@
-# restrict/block access to dcm.php by default
+* restrict/block access to dcm.php by default
+* change admin default password or restrict access to localhost
+* make plugins installable
