@@ -1,5 +1,7 @@
 usr/share/icons/silk/16x16 usr/share/opennetadmin/images/silk
 etc/opennetadmin           usr/share/opennetadmin/local/config
+usr/local/bin              usr/share/opennetadmin/bin
+etc/opennetadmin           usr/share/opennetadmin/etc
 var/log/opennetadmin       usr/share/opennetadmin/www/log
 usr/share/php/adodb        usr/share/opennetadmin/include/adodb5
 var/lib/opennetadmin/plugins  usr/share/opennetadmin/local/plugins
