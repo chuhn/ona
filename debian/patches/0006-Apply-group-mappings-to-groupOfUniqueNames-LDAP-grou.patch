@@ -1,0 +1,39 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Mon, 12 Nov 2018 17:45:38 +0100
+Subject: Apply group mappings to groupOfUniqueNames LDAP groups too
+
+---
+ www/include/auth/ldap.class.php | 19 +++++++++++++++++--
+ 1 file changed, 17 insertions(+), 2 deletions(-)
+
+diff --git a/www/include/auth/ldap.class.php b/www/include/auth/ldap.class.php
+index 1e28ee8..ccaa89c 100644
+--- a/www/include/auth/ldap.class.php
++++ b/www/include/auth/ldap.class.php
+@@ -250,9 +250,24 @@ class auth_ldap extends auth_local {
+ 
+             if(is_array($result)) foreach($result as $grp){
+                 if(!empty($grp[$this->cnf['groupkey']][0])){
++                    $groupname = $grp[$this->cnf['groupkey']][0];
+                     if($this->cnf['debug'])
+-                        printmsg('DEBUG => auth_ldap: LDAP usergroup: '.htmlspecialchars($grp[$this->cnf['groupkey']][0]),2);
+-                    $info['grps'][$grp[$this->cnf['groupkey']][0]] = $g++;
++                        printmsg('DEBUG => auth_ldap: LDAP usergroup: '
++                        .htmlspecialchars($groupname),2);
++                    if(!empty($this->cnf['mapping']['grps'][$this->cnf['groupkey']])){
++                        $regexp = $this->cnf['mapping']['grps'][$this->cnf['groupkey']];
++                        printmsg('DEBUG => Matching '.htmlspecialchars($groupname)
++                                                     .' against '.htmlspecialchars($regexp),2);
++                        if (preg_match($regexp,$groupname,$match)) {
++                            $groupname_mapped = $match[1];
++                            if($this->cnf['debug'])
++                                printmsg('DEBUG => auth_ldap: mapped LDAP usergroup: '
++                                .htmlspecialchars($groupname_mapped),2);
++                            $info['grps'][$groupname_mapped] = $g++;
++                        }
++                    } else {
++                        $info['grps'][$groupname] = $g++;
++                    }
+                 }
+             }
+         }

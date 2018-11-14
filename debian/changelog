@@ -1,3 +1,13 @@
+opennetadmin (18.1.1-4) unstable; urgency=medium
+
+  * Add patch to disable default guest access and enable DNS views
+  * Create /etc/onabase
+  * Write package version to sys_config table
+  * Create links for bin and etc
+  * Add patches for LDAP login improvements
+
+ -- Christopher Huhn <C.Huhn@gsi.de>  Wed, 14 Nov 2018 13:44:54 +0100
+
 opennetadmin (18.1.1-3) unstable; urgency=medium
 
   * Disable asset tag patch

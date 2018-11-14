@@ -1,0 +1,29 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Wed, 14 Nov 2018 13:01:01 +0100
+Subject: Deny login for LDAP user without group (fixes #137)
+
+---
+ www/include/functions_auth.inc.php | 10 ++++++++++
+ 1 file changed, 10 insertions(+)
+
+diff --git a/www/include/functions_auth.inc.php b/www/include/functions_auth.inc.php
+index af61db8..f724f12 100644
+--- a/www/include/functions_auth.inc.php
++++ b/www/include/functions_auth.inc.php
+@@ -113,6 +113,16 @@ function get_authentication($login_name='', $login_password='') {
+         return(array(1, $js));
+     }
+ 
++    // look for group information:
++    if ($conf['authtype'] == 'ldap') { // ... other constraints
++        $userinfo = $auth->getUserData($login_name);
++        if (empty($userinfo['grps'])) {
++            $js = "el('loginmsg').innerHTML = 'Permission denied';";
++            printmsg("ERROR => Login failure for {$login_name} using authtype {$conf['authtype']}: No group assigned", 0);
++            return(array(1, $js));
++        }
++    }
++
+     // If the password is good.. return success.
+     printmsg("INFO => Authentication Successful for {$login_name} using authtype: {$conf['authtype']}", 1);
+     return(array(0, $js));
