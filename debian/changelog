@@ -1,3 +1,9 @@
+opennetadmin (18.1.1-5) buster; urgency=medium
+
+  * UNRELEASED
+
+ -- Christopher Huhn <C.Huhn@gsi.de>  Thu, 04 Aug 2022 16:02:13 +0200
+
 opennetadmin (18.1.1-4) unstable; urgency=medium
 
   * Add patch to disable default guest access and enable DNS views
