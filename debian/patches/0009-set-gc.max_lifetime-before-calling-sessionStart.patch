@@ -1,0 +1,39 @@
+From: framer99 <framer.ninety.nine@gmail.com>
+Date: Wed, 21 Nov 2018 13:32:20 -0800
+Subject: set gc.max_lifetime before calling sessionStart()
+
+As of PHP 7.2 , a warning is issued that you cannot set session module
+ini settings after the session is active.
+
+    PHP Warning:  ini_set(): A session is active. You cannot change
+                  the session module's ini settings at this time in
+                  /opt/ona/www/config/config.inc.php on line 232
+
+Apparently it has never worked to set gc.max_lifetime after session start
+but no warning was issued so it was a silent failure.
+
+    https://bugs.php.net/bug.php?id=75650
+---
+ www/config/config.inc.php | 6 +++---
+ 1 file changed, 3 insertions(+), 3 deletions(-)
+
+diff --git a/www/config/config.inc.php b/www/config/config.inc.php
+index 0a9f30d..3c8a1eb 100644
+--- a/www/config/config.inc.php
++++ b/www/config/config.inc.php
+@@ -227,12 +227,12 @@ require_once($conf['inc_functions_gui']);
+ // Include the AUTH functions
+ require_once($conf['inc_functions_auth']);
+ 
+-// Start the session handler (this calls a function defined in functions_general)
+-startSession();
+-
+ // Set session inactivity threshold
+ ini_set("session.gc_maxlifetime", $conf['cookie_life']);
+ 
++// Start the session handler (this calls a function defined in functions_general)
++startSession();
++
+ // if search_results_per_page is in the session, set the $conf variable to it.  this fixes the /rows command
+ if (isset($_SESSION['search_results_per_page'])) $conf['search_results_per_page'] = $_SESSION['search_results_per_page'];
+ 
