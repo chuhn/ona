@@ -247,7 +247,7 @@ EOM
        $fmt = 'ipv6gz';
        $ip1 = ip_mangle($ourip, 'bin128');
        $sub = gmp_sub("340282366920938463463374607431768211455", $options['netmask']);
-       $num_hosts = gmp_strval($sub); 
+       $num_hosts = gmp_strval($sub);
        $last_host = gmp_strval(gmp_add($options['ip'],$num_hosts));
     }
 
@@ -271,7 +271,7 @@ EOM
     if ($rows != 0) {
         $self['error'] = "ERROR => Subnet address conflict! New subnet starts inside an existing subnet.";
         return(array(6, $self['error'] . "\n" .
-                        "ERROR  => Conflicting subnet record ID: {$subnet['id']}\n"));
+                        "ERROR => Conflicting subnet record ID: {$subnet['id']}\n"));
     }
 
 
@@ -283,7 +283,7 @@ EOM
     if ($rows != 0) {
         $self['error'] = "ERROR => Subnet address conflict! New subnet ends inside an existing subnet.";
         return(array(7, $self['error'] . "\n" .
-                        "ERROR  => Conflicting subnet record ID: {$subnet['id']}\n"));
+                        "ERROR => Conflicting subnet record ID: {$subnet['id']}\n"));
     }
 
 
@@ -298,7 +298,7 @@ EOM
     if ($rows != 0) {
         $self['error'] = "ERROR => Subnet address conflict! New subnet would encompass an existing subnet.";
         return(array(8, $self['error'] . "\n" .
-                        "ERROR  => Conflicting subnet record ID: {$subnet['id']}\n"));
+                        "ERROR => Conflicting subnet record ID: {$subnet['id']}\n"));
     }
 
     // The IP/NETMASK look good, set them.
@@ -772,7 +772,7 @@ EOM
     if ($options['commit'] == 'Y') {
         $text = "";
 
-        // FIXME: (add all this) ... 
+        // FIXME: (add all this) ...
         // SUMMARY:
         //   Delete assignments to any DHCP servers
         //   Delete any DHCP pools on the current subnet
@@ -912,7 +912,7 @@ EOM
     //   Display any DHCP parameters associated with this subnet
     //   Display subnet Record
     //   Display Host records (and all their sub-records)
-    //   Display custom attributes 
+    //   Display custom attributes
 
 
     // Otherwise just display the host record for the host we would have deleted
@@ -1041,7 +1041,7 @@ function subnet_nextip($options="") {
     // Version - UPDATE on every edit!
     $version = '1.00';
 
-    printmsg('DEBUG => subnet_del('.$options.') called', 3);
+    printmsg('DEBUG => subnet_nextip('.$options.') called', 3);
 
     // Parse incoming options string to an array
     $options = parse_options($options);
@@ -1056,7 +1056,7 @@ function subnet_nextip($options="") {
         return(array(1,
 <<<EOM
 
-subnet_del-v{$version}
+subnet_nextip-v{$version}
 Return the next available IP address on a subnet.
 
   Synopsis: subnet_nextip [KEY=VALUE] ...
@@ -1074,7 +1074,7 @@ EOM
     }
 
 
-    // Find the subnet record we're deleting
+    // Find the subnet record
     list($status, $rows, $subnet) = ona_find_subnet($options['subnet']);
     if ($status or !$rows) {
         $self['error'] = "ERROR => Subnet not found";

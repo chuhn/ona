@@ -30,9 +30,9 @@ $_ENV['help_url'] = "http://opennetadmin.com/docs/";
 
 
 // Get any query info
-parse_str($_SERVER['QUERY_STRING']);
+parse_str($_SERVER['QUERY_STRING'],$output);
 
-
+$year = date('Y');
 
 // Many of these settings serve as defaults.  They can be overridden by the settings in
 // the table "sys_config"
@@ -70,6 +70,7 @@ $conf = array (
 
     /* Defaults for some user definable options normally in sys_config table */
     "debug"                  => "2",
+    "force_https"            => "0", // TODO: check what the best default is here.. something wrong with port level redirects too
     "syslog"                 => "0",
     "stdout"                 => "0",
     "log_to_db"              => "0",
@@ -225,11 +226,11 @@ require_once($conf['inc_functions_gui']);
 // Include the AUTH functions
 require_once($conf['inc_functions_auth']);
 
-// Start the session handler (this calls a function defined in functions_general)
-startSession();
-
 // Set session inactivity threshold
 ini_set("session.gc_maxlifetime", $conf['cookie_life']);
+
+// Start the session handler (this calls a function defined in functions_general)
+startSession();
 
 // if search_results_per_page is in the session, set the $conf variable to it.  this fixes the /rows command
 if (isset($_SESSION['search_results_per_page'])) $conf['search_results_per_page'] = $_SESSION['search_results_per_page'];

@@ -7,7 +7,7 @@ It will do this each time the interface is opened so the traffic should be very 
 Since fopen is required, I had been getting 'unable to determine' messages.
 I was able to fix it by adding the following to my apache config for the ona site
 
-php_admin_flag allow_url_fopen on
+php_admin_flag allow_url_fopen on # not sure this is required anymore?
 */
 
 $title_right_html = '';
@@ -22,6 +22,8 @@ if ($extravars['window_name'] == 'html_desktop') {
 
         // Define the URL we use to check what version is the latest release
         $ona_check_version_url = 'http://checkversion.opennetadmin.com';
+        $onaver = 'Unable to determine';
+        $buffer = '';
 
         if ($ona_check_version_url) {
             $stream_opts = array(
@@ -46,26 +48,32 @@ if ($extravars['window_name'] == 'html_desktop') {
             // for some reason the default_socket_timeout was not working properly.
             //$fsock = @fsockopen("tcp://{$onachkserver}", 80, $errNo, $errString, 2);
             //if ($fsock) {
-                $old = @ini_set('default_socket_timeout', 2);
+                $timeout = 2;
+                $old = @ini_set('default_socket_timeout', $timeout);
                 $file = @fopen($ona_check_version_url, 'r', false, $context);
-                @ini_set('default_socket_timeout', $old);
+                if (!$file) {
+                  $onaver="Unable to reach check version server";
+                } else {
+                  @ini_set('default_socket_timeout', $old);
+                  stream_set_timeout($file, $timeout);
+                  #stream_set_blocking($file, 0);
+                }
             //}
         }
 
-        $onaver = "Unable to determine";
-        if ($file) {
+        if (isset($file) && $file != false) {
             while (!feof ($file)) {
-                $buffer = trim(fgets ($file, 4096));
-                $onaver = $buffer;
+                $buffer .= trim(fread ($file, 1024));
             }
             fclose($file);
+            $onaver = $buffer;
         }
         if ($conf['version'] == $onaver) {
             $versit = "<img src='{$images}/silk/accept.png'> You are on the official stable version! ({$onaver})<br/><br/>";
         }
         else {
             $sty='fail';
-            if ($onaver == "Unable to determine") $sty='_unknown';
+            if ($onaver == 'Unable to determine') $sty='_unknown';
 
             $modbodyhtml .= <<<EOL
 <div class='version_check{$sty}'>
