@@ -4,7 +4,3 @@
 0004-Deny-login-for-LDAP-user-without-group-fixes-137.patch
 0005-Allow-signs-in-login-names-so-email-addresses-can-be.patch
 0006-Apply-group-mappings-to-groupOfUniqueNames-LDAP-grou.patch
-0007-fix-custom-db-session-handlers-for-changes-in-PHP7.1.patch
-0008-initialize-modwsmenu-as-array-for-php-7.x.patch
-0009-set-gc.max_lifetime-before-calling-sessionStart.patch
-0010-Fixing-security-issue-from-exploit-db.com-with-edb-i.patch
