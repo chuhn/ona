@@ -1,0 +1,21 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Fri, 4 Aug 2023 16:22:35 +0200
+Subject: Use system adodb
+
+---
+ www/config/config.inc.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/www/config/config.inc.php b/www/config/config.inc.php
+index 96f401d..50bbd41 100644
+--- a/www/config/config.inc.php
++++ b/www/config/config.inc.php
+@@ -59,7 +59,7 @@ $conf = array (
+     "inc_functions_db"       => "$include/functions_db.inc.php",
+     "inc_functions_auth"     => "$include/functions_auth.inc.php",
+     "inc_db_sessions"        => "$include/adodb_sessions.inc.php",
+-    "inc_adodb"              => "$include/adodb/adodb.inc.php",
++    "inc_adodb"              => "adodb/adodb.inc.php",
+     "inc_adodb_xml"          => "$include/adodb/adodb-xmlschema03.inc.php",
+     "inc_xajax_stuff"        => "$include/xajax_setup.inc.php",
+     "inc_diff"               => "$include/DifferenceEngine.php",
