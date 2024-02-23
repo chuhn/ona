@@ -7,7 +7,7 @@ Subject: Allow @ signs in login names so email addresses can be used
  1 file changed, 1 insertion(+), 1 deletion(-)
 
 diff --git a/www/include/functions_auth.inc.php b/www/include/functions_auth.inc.php
-index f724f12..e4ee6cf 100644
+index 3c6765b..2c6a67b 100644
 --- a/www/include/functions_auth.inc.php
 +++ b/www/include/functions_auth.inc.php
 @@ -68,7 +68,7 @@ function get_authentication($login_name='', $login_password='') {

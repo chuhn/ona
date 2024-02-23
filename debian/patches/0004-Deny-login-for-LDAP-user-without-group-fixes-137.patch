@@ -7,7 +7,7 @@ Subject: Deny login for LDAP user without group (fixes #137)
  1 file changed, 10 insertions(+)
 
 diff --git a/www/include/functions_auth.inc.php b/www/include/functions_auth.inc.php
-index af61db8..f724f12 100644
+index a89a223..3c6765b 100644
 --- a/www/include/functions_auth.inc.php
 +++ b/www/include/functions_auth.inc.php
 @@ -113,6 +113,16 @@ function get_authentication($login_name='', $login_password='') {

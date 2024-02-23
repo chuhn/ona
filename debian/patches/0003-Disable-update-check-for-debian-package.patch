@@ -7,10 +7,10 @@ Subject: Disable update check for debian package
  1 file changed, 2 insertions(+)
 
 diff --git a/www/config/config.inc.php b/www/config/config.inc.php
-index 05b102b..0a9f30d 100644
+index 27156bd..96f401d 100644
 --- a/www/config/config.inc.php
 +++ b/www/config/config.inc.php
-@@ -74,6 +74,8 @@ $conf = array (
+@@ -75,6 +75,8 @@ $conf = array (
      "stdout"                 => "0",
      "log_to_db"              => "0",
      "logfile"                => "/var/log/opennetadmin/ona.log",
