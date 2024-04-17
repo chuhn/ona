@@ -1,3 +1,15 @@
+opennetadmin (19.0.1-2+deb12.1) bookworm; urgency=medium
+
+  * Use system adodb
+  * Don't enable DNS views by default
+  * adode5 -> adodb
+  * Remove obsolete patches
+  * Clean up backup file
+  * Add patch to make add_module idempotent
+  * Update years in copyright
+
+ -- Christopher Huhn <C.Huhn@gsi.de>  Wed, 17 Apr 2024 11:40:36 +0200
+
 opennetadmin (19.0.1-1) bullseye; urgency=medium
 
   * New upstream version
