@@ -1,0 +1,73 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Wed, 6 Mar 2024 19:05:43 +0100
+Subject: Make add_module idempotent
+
+add_module can now be called for modules that already exist - it
+will update the description and path of the given module instead of aborting.
+This allows the same module to be installed multiple times (eg. by a script)
+without the need to delete it from the DB with direct SQL inbeforehand of
+reinstallation.
+---
+ www/modules/get_module_list.inc.php | 42 +++++++++++++++++++++++--------------
+ 1 file changed, 26 insertions(+), 16 deletions(-)
+
+diff --git a/www/modules/get_module_list.inc.php b/www/modules/get_module_list.inc.php
+index 514c591..0dfb737 100644
+--- a/www/modules/get_module_list.inc.php
++++ b/www/modules/get_module_list.inc.php
+@@ -138,23 +138,33 @@ EOM
+     // Get a list of the valid "modules" and their descriptions.
+     list($status, $rows, $modules) = db_get_record($onadb, 'dcm_module_list', array('name' => $options['name']), '');
+     if ($rows) {
+-        $self['error'] = "ERROR => add_module() Module name already exists: {$options['name']}";
+-        printmsg($self['error'],0);
+-        return(array(1, $self['error'] . "\n"));
++        printmsg("WARN => add_module() Module name already exists, updating: {$options['name']}");
++        // Update the record:
++        list($status, $rows) =
++          db_update_record(
++              $onadb,
++              'dcm_module_list',
++              array('name' => $options['name']),
++              array(
++                  'description'     => $options['desc'],
++                  'file'            => $options['file'],
++              )
++          );
++    } else {
++        // Add the record
++        list($status, $rows) =
++          db_insert_record(
++              $onadb,
++              'dcm_module_list',
++              array(
++                  'name'            => $options['name'],
++                  'description'     => $options['desc'],
++                  'file'            => $options['file'],
++              )
++          );
+     }
+ 
+-    // Add the record
+-    list($status, $rows) =
+-        db_insert_record(
+-            $onadb,
+-            'dcm_module_list',
+-            array(
+-                'name'            => $options['name'],
+-                'description'     => $options['desc'],
+-                'file'            => $options['file'],
+-            )
+-        );
+-    if ($status or !$rows) {
++    if ($status) {
+         $self['error'] = "ERROR => add_module() SQL Query failed: " . $self['error'];
+         printmsg($self['error'],0);
+         return(array(2, $self['error'] . "\n"));
+@@ -169,4 +179,4 @@ EOM
+ 
+ 
+ 
+-?>
+\ No newline at end of file
++?>
