@@ -1,3 +1,9 @@
+opennetadmin (19.0.2-1) bookworm; urgency=medium
+
+  * New upstream version
+
+ -- Christopher Huhn <C.Huhn@gsi.de>  Thu, 08 Aug 2024 12:05:55 +0200
+
 opennetadmin (19.0.1-2+deb12.1) bookworm; urgency=medium
 
   * Use system adodb
