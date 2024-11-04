@@ -1,3 +1,9 @@
+opennetadmin (19.0.3-2) bookworm; urgency=medium
+
+  * php-xajax is gone and vendored anyhow
+
+ -- Christopher Huhn <C.Huhn@gsi.de>  Mon, 04 Nov 2024 16:41:24 +0100
+
 opennetadmin (19.0.3-1) bookworm; urgency=medium
 
   * Drop bogus --with-quilt flag

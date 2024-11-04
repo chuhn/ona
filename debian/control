@@ -11,7 +11,7 @@ Homepage: http://opennetadmin.com/
 Package: opennetadmin
 Architecture: all
 Depends: ${misc:Depends}, dbconfig-mysql | dbconfig-no-thanks, php-cli, ucf,
- famfamfam-silk, libphp-adodb, php-mbstring, php-gmp, php-mysql, php-xajax, php-xml,
+ famfamfam-silk, libphp-adodb, php-mbstring, php-gmp, php-mysql, php-xml,
  libapache2-mod-php | php-cgi | php-fpm | php
 Recommends: default-mysql-client, ${misc:Recommends}, apache2 | httpd
 Suggests: default-mysql-server, php-ldap
