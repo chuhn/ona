@@ -1,0 +1,31 @@
+From: Christopher Huhn <C.Huhn@gsi.de>
+Date: Mon, 4 Nov 2024 14:51:18 +0100
+Subject: Fix search path for sql dirs
+
+The sql dirs are beneath /usr/share/opennetadmin aka $base and not in /usr/share
+---
+ www/modules/sql.inc.php | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/www/modules/sql.inc.php b/www/modules/sql.inc.php
+index 6aa4ce4..4461f6e 100644
+--- a/www/modules/sql.inc.php
++++ b/www/modules/sql.inc.php
+@@ -23,7 +23,7 @@ function ona_sql($options="") {
+     $version = '1.06';
+ 
+     // TODO: Maybe make this into a sys_config option
+-    $srvdir = dirname($base)."/sql";
++    $srvdir = $base."/sql";
+ 
+     printmsg('DEBUG => ona_sql('.$options.') called', 3);
+ 
+@@ -121,7 +121,7 @@ EOM
+     $sqlopts = array();
+     array_push($srvdirs, $srvdir);
+     // add a local sql dir as well so they don't get overrriden by installs
+-    array_push($srvdirs, dirname($base).'/www/local/sql');
++    array_push($srvdirs, $base.'/www/local/sql');
+ 
+     // loop through the plugins and find files inside of their sql directories.
+     foreach($plugins as $plug) {

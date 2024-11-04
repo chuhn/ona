@@ -6,3 +6,4 @@
 0006-Apply-group-mappings-to-groupOfUniqueNames-LDAP-grou.patch
 0007-Use-system-adodb.patch
 0008-Make-add_module-idempotent.patch
+0009-Fix-search-path-for-sql-dirs.patch
