@@ -20,7 +20,7 @@ DEB_VERSION := $(shell dpkg-parsechangelog | egrep '^Version:' | cut -f 2 -d ' '
 
 # main packaging script based on dh7 syntax
 %:
-	dh $@ --with quilt --with apache2
+	dh $@ --with apache2
 
 override_dh_install:
 	dh_install --list-missing
