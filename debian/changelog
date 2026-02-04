@@ -1,3 +1,9 @@
+opennetadmin (19.0.3-3) bookworm; urgency=medium
+
+  * Renumber patch and cherry-pick #199
+
+ -- Christopher Huhn <C.Huhn@gsi.de>  Wed, 04 Feb 2026 16:45:45 +0100
+
 opennetadmin (19.0.3-2) bookworm; urgency=medium
 
   * php-xajax is gone and vendored anyhow

@@ -1,0 +1,22 @@
+From: Christopher Huhn <c.huhn@gsi.de>
+Date: Fri, 31 Jan 2025 13:05:07 +0100
+Subject: Drop call of each()
+
+There is not iteration over each() here, so we can simply drop it
+---
+ www/include/auth/ldap.class.php | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/www/include/auth/ldap.class.php b/www/include/auth/ldap.class.php
+index c23bffc..f8ef031 100644
+--- a/www/include/auth/ldap.class.php
++++ b/www/include/auth/ldap.class.php
+@@ -216,7 +216,7 @@ class auth_ldap extends auth_local {
+             foreach($this->cnf['mapping'] as $localkey => $key) {
+                 if(is_array($key)) {
+                     // use regexp to clean up user_result
+-                    list($key, $regexp) = each($key);
++                    list($key, $regexp) = $key;
+                     if($user_result[$key]) foreach($user_result[$key] as $grp){
+                         if (preg_match($regexp,$grp,$match)) {
+                             if($localkey == 'grps') {
