@@ -1,0 +1,158 @@
+From: Matt Pascoe <matt@opennetadmin.com>
+Date: Sun, 28 Dec 2025 03:17:41 +0000
+Subject: Add dhcp_entry_display module to address issue #201
+
+---
+ install/15-to-16.xml                  |  8 +++++++
+ install/ona-data.xml                  |  3 ++-
+ www/include/functions_general.inc.php |  3 +--
+ www/modules/ona/dhcp_entry.inc.php    | 43 ++++++++++++++++-------------------
+ 4 files changed, 30 insertions(+), 27 deletions(-)
+ create mode 100644 install/15-to-16.xml
+
+diff --git a/install/15-to-16.xml b/install/15-to-16.xml
+new file mode 100644
+index 0000000..695da7c
+--- /dev/null
++++ b/install/15-to-16.xml
+@@ -0,0 +1,8 @@
++<?xml version="1.0"?>
++<schema version="0.3">
++<sql>
++    <query platform="mysqli">INSERT INTO dcm_module_list (name,description,file) VALUES ('dhcp_entry_display', 'Display information about a DHCP option entry', 'ona/dhcp_entry.inc.php') on duplicate key update name='dhcp_entry_display'</query> 
++</sql>
++</schema>
++
++
+diff --git a/install/ona-data.xml b/install/ona-data.xml
+index 87da5c9..6712f56 100644
+--- a/install/ona-data.xml
++++ b/install/ona-data.xml
+@@ -38,6 +38,7 @@
+ ('dhcp_pool_del','Delete a DHCP pool','ona/dhcp_pool.inc.php'),
+ ('dhcp_entry_add','Add a DHCP option entry','ona/dhcp_entry.inc.php'),
+ ('dhcp_entry_del','Delete a DHCP option entry','ona/dhcp_entry.inc.php'),
++('dhcp_entry_display','Display information about a DHCP option entry','ona/dhcp_entry.inc.php'),
+ ('dhcp_entry_modify','Modify DHCP option entry','ona/dhcp_entry.inc.php'),
+ ('message_add','Add a message to a subnet or host that will show on a display page','ona/message.inc.php'),
+ ('block_add','Add an ip block range','ona/block.inc.php'),
+@@ -136,7 +137,7 @@
+ ('suggest_max_results', '10', 'Limits the amount of rows returned by queries. (test impact of changing this first)', '', '', 1, 0),
+ ('syslog', '0', 'Log via syslog, only works if debug is set to 0', '', '', 0, 0),
+ ('version', 'not-set', 'Tracks current installed version, used to detect when upgrades should be done.', '', '', 0, 0),
+-('upgrade_index', '15', 'Tracks current upgrade index, used to perform database upgrades.', '', '', 0, 0);</query>
++('upgrade_index', '16', 'Tracks current upgrade index, used to perform database upgrades.', '', '', 0, 0);</query>
+ 
+ 
+ <query>INSERT INTO `users` VALUES (1,'guest','084e0343a0486ff05530df6c705c8bb4',0,'2007-10-30 02:55:37','2007-12-02 23:44:21'),(2,'admin','21232f297a57a5a743894a0e4a801fc3',0,'2007-10-30 03:00:17','2007-12-02 22:10:26');</query>
+diff --git a/www/include/functions_general.inc.php b/www/include/functions_general.inc.php
+index a7fed87..d557dfb 100644
+--- a/www/include/functions_general.inc.php
++++ b/www/include/functions_general.inc.php
+@@ -1785,8 +1785,7 @@ function format_array($array=array()) {
+                 $array[$key] = str_pad($array[$key], 20) . strtolower("({$host['fqdn']})");
+         }
+         else if ($key == 'server_id')         {
+-            list($status, $rows, $server) = ona_get_server_record(array('id' => $array[$key]));
+-            list($status, $rows, $host) = ona_find_host($server['host_id']);
++            list($status, $rows, $host) = ona_find_host($array[$key]);
+             if ($host['id'])
+                 $array[$key] = str_pad($array[$key], 20) . strtolower("({$host['fqdn']})");
+         }
+diff --git a/www/modules/ona/dhcp_entry.inc.php b/www/modules/ona/dhcp_entry.inc.php
+index f9efd40..85e7ef6 100644
+--- a/www/modules/ona/dhcp_entry.inc.php
++++ b/www/modules/ona/dhcp_entry.inc.php
+@@ -658,7 +658,7 @@ function dhcp_entry_display($options="") {
+     global $conf, $self, $onadb;
+ 
+     // Version - UPDATE on every edit!
+-    $version = '1.00';
++    $version = '1.01';
+ 
+     printmsg("DEBUG => dhcp_entry_display({$options}) called", 3);
+ 
+@@ -703,8 +703,8 @@ EOM
+         }
+ 
+         $anchor = 'host';
+-        $desc = $host['FQDN'];
+-        $where = array('HOST_id' => $host['id']);
++        $desc = $host['fqdn'];
++        $where = array('host_id' => $host['id']);
+     } elseif ($options['subnet']) {
+         // Determine the subnet is valid
+         list($status, $rows, $subnet) = ona_find_subnet($options['subnet']);
+@@ -716,8 +716,8 @@ EOM
+         }
+ 
+         $anchor = 'subnet';
+-        $desc = "{$subnet['DESCRIPTION']} (". ip_mangle($subnet['IP_ADDRESS']).")";
+-        $where = array('NETWORK_id' => $subnet['id']);
++        $desc = "{$subnet['name']} (". ip_mangle($subnet['ip_addr']).")";
++        $where = array('subnet_id' => $subnet['id']);
+ 
+     } elseif ($options['server']) {
+         // Determine the server is valid
+@@ -729,38 +729,22 @@ EOM
+             return(array(4, $self['error'] . "\n"));
+         }
+ 
+-        // Determine the host that was found is actually a server
+-        list($status, $rows, $server) = ona_get_server_record(array('HOST_id' => $host['id']));
+-
+-        if (!$server['id']) {
+-            printmsg("DEBUG => The host specified, {$host['FQDN']}, is not a server!", 3);
+-            $self['error'] = "ERROR => The host specified, {$host['FQDN']}, is not a server!";
+-            return(array(5, $self['error'] . "\n"));
+-        }
+-
+         $anchor = 'server';
+-        $desc = $host['FQDN'];
+-        $where = array('SERVER_id' => $server['id']);
++        $desc = $host['fqdn'];
++        $where = array('server_id' => $host['id']);
+ 
+     }
+ 
+-
+     // Debugging
+     printmsg("DEBUG => dhcp_entry_display(): Found {$anchor}: {$desc}", 3);
+ 
+-
+-
+-
+-
+-
+-
+     // Build text to return
+     $text  = strtoupper($anchor) . " RECORD ({$desc})\n";
+ 
+     // Display the record(s)
+     $i = 0;
+     do {
+-        list($status, $rows, $entry) = ona_get_dhcp_entry_record($where);
++        list($status, $rows, $entry) = ona_get_dhcp_option_entry_record($where);
+         if ($rows == 0) {
+             $text .= "\nNO ASSOCIATED DHCP ENTRY RECORDS\n";
+             break;
+@@ -768,8 +752,19 @@ EOM
+         $i++;
+         $text .= "\nASSOCIATED DHCP ENTRY RECORD ({$i} of {$rows})\n";
+         $text .= format_array($entry);
++        $text_array['dhcp_entry'][$i] = $entry;
+     } while ($i < $rows);
+ 
++    $text_array['dhcp_entry_count'] = $rows;
++
++    // change the output format if other than default
++    if ($options['format'] == 'json') {
++        $text = $text_array;
++    }
++    if ($options['format'] == 'yaml') {
++        $text = $text_array;
++    }
++
+     // Return the success notice
+     return(array(0, $text));
+ 

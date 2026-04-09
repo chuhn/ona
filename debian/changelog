@@ -1,3 +1,9 @@
+opennetadmin (19.0.3-4) bookworm; urgency=medium
+
+  * Add patch for #201 from develop branch
+
+ -- Christopher Huhn <C.Huhn@gsi.de>  Thu, 09 Apr 2026 15:06:09 +0200
+
 opennetadmin (19.0.3-3) bookworm; urgency=medium
 
   * Renumber patch and cherry-pick #199

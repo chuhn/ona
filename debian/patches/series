@@ -7,3 +7,4 @@
 0008-Make-add_module-idempotent.patch
 0008-Fix-search-path-for-sql-dirs.patch
 0009-Drop-call-of-each.patch
+0010-Add-dhcp_entry_display-module-to-address-issue-201.patch
